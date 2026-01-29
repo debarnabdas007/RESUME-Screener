@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Screener AI</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .container { border: 1px solid #ddd; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        textarea { width: 100%; height: 150px; margin-bottom: 20px; padding: 10px; }
+        .result { background: #e0f7fa; padding: 15px; border-left: 5px solid #00bcd4; margin-top: 20px; font-size: 1.2em; }
+        button { background-color: #008CBA; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #005f7f; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Smart Resume Screener</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            
+            <h3>Option 1: Paste Resume Text</h3>
+            <textarea name="resume_text" placeholder="Paste the resume content here..."></textarea>
+            
+            <h3>Option 2: Upload PDF</h3>
+            <input type="file" name="resume_file" accept=".pdf">
+            <br><br>
+
+            <button type="submit">Analyze Resume</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            {{ result }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
