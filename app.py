@@ -44,6 +44,10 @@ def predict_datapoint():
             result_string += f" | Match Score: {match_score}%"
 
         return render_template('home.html', result=result_string)
+    
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

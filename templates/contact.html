@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Resume Screener</title>
+    <style>
+        /* --- CSS VARIABLES (Same as Home) --- */
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --text-color: #333;
+            --nav-bg: #2c3e50;
+            --nav-text: #ecf0f1;
+            --accent-color: #008CBA;
+            --footer-bg: #2c3e50;
+            --footer-text: #bdc3c7;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --container-bg: #2d2d2d;
+            --text-color: #e0e0e0;
+            --nav-bg: #111;
+            --nav-text: #fff;
+            --footer-bg: #111;
+            --footer-text: #888;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+
+        .content-wrapper { flex: 1; }
+
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a { color: var(--nav-text); text-decoration: none; margin-left: 20px; }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: #777;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+        }
+        footer a { color: var(--accent-color); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <nav class="navbar">
+            <a href="/" style="font-weight: bold; font-size: 1.2em;">🚀 ResumeAI</a>
+            <div>
+                <a href="/">Home</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="profile-img">👨‍💻</div>
+            <h1>Debarnab Das</h1>
+            <p>CS Undergraduate & ML Engineer</p>
+            <p style="opacity: 0.8; margin-bottom: 30px;">
+                Building reliable AI systems and scalable web applications.
+            </p>
+
+            <div class="social-links">
+                <a href="#" target="_blank">GitHub</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="mailto:dasdebarnab321@gmail.com">Email Me</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Resume Screener AI. All rights reserved.</p>
+        <p>Built by Debarnab Das</p>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        
+        // Sync Theme
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+        }
+    </script>
+</body>
+</html>

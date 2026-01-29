@@ -1,43 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Screener AI</title>
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
-        .container { border: 1px solid #ddd; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; }
-        textarea { width: 100%; height: 150px; margin-bottom: 20px; padding: 10px; }
-        .result { background: #e0f7fa; padding: 15px; border-left: 5px solid #00bcd4; margin-top: 20px; font-size: 1.2em; }
-        button { background-color: #008CBA; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px; }
-        button:hover { background-color: #005f7f; }
+        /* --- CSS VARIABLES --- */
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --text-color: #333;
+            --accent-color: #008CBA;
+            --accent-hover: #005f7f;
+            --border-color: #ddd;
+            --result-bg: #e0f7fa;
+            --result-border: #00bcd4;
+            --result-text: #006064;
+            --nav-bg: #2c3e50;
+            --nav-text: #ecf0f1;
+            --footer-bg: #2c3e50;
+            --footer-text: #bdc3c7;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --container-bg: #2d2d2d;
+            --text-color: #e0e0e0;
+            --accent-color: #00bcd4;
+            --accent-hover: #008ba3;
+            --border-color: #444;
+            --result-bg: #37474f;
+            --result-border: #00bcd4;
+            --result-text: #b2ebf2;
+            --nav-bg: #111;
+            --nav-text: #fff;
+            --footer-bg: #111;
+            --footer-text: #888;
+        }
+
+        /* --- STICKY FOOTER SETUP --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Takes full viewport height */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Main content expands to fill space */
+        .content-wrapper {
+            flex: 1; 
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--nav-text);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 1em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--accent-color); }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--nav-text);
+            color: var(--nav-text);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+        }
+
+        h1 { text-align: center; color: var(--text-color); margin-bottom: 30px; }
+        label { font-weight: 600; display: block; margin-bottom: 8px; margin-top: 20px; }
+
+        textarea, input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button.submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+
+        button.submit-btn:hover { background-color: var(--accent-hover); }
+
+        /* --- RESULT BOX --- */
+        .result-box {
+            margin-top: 40px;
+            background: var(--result-bg);
+            border-left: 6px solid var(--result-border);
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .result-text { font-size: 1.4em; color: var(--result-text); font-weight: bold; }
+
+        .score-guide {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.9em;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 4px 8px;
+            background: var(--bg-color);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+            margin-top: auto; /* Push to bottom if content is short */
+        }
+
+        footer p { margin: 5px 0; }
+        footer a { color: var(--accent-color); text-decoration: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Smart Resume Screener</h1>
-        <form action="/" method="post" enctype="multipart/form-data">
+
+    <div class="content-wrapper">
+        
+        <nav class="navbar">
+            <a href="/" class="navbar-brand">🚀 ResumeAI</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/contact">Contact</a>
+                <button class="theme-toggle" onclick="toggleTheme()">🌗 Mode</button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h1>Smart Resume Screener</h1>
             
-            <h3>Option 1: Paste Resume Text</h3>
-            <textarea name="resume_text" placeholder="Paste the resume content here..."></textarea>
-            
-            <h3>Option 2: Upload PDF</h3>
-            <input type="file" name="resume_file" accept=".pdf">
-            <br><br>
+            <form action="/" method="post" enctype="multipart/form-data">
+                <label>1. Upload Resume (PDF)</label>
+                <input type="file" name="resume_file" accept=".pdf">
 
-            <h3>Option 3: Paste Job Description (Optional)</h3>
-            <textarea name="jd_text" placeholder="Paste the Job Description here to see how well you match..."></textarea>
-            <br><br>
+                <div style="text-align: center; margin: 15px; opacity: 0.6;">- OR -</div>
 
-            <button type="submit">Analyze Resume</button>
-        </form>
+                <label>2. Paste Resume Text</label>
+                <textarea name="resume_text" rows="5" placeholder="Copy & Paste resume content here..."></textarea>
 
-        {% if result %}
-        <div class="result">
-            {{ result }}
+                <label>3. Paste Job Description (Optional)</label>
+                <textarea name="jd_text" rows="5" placeholder="Paste JD to check keyword match..."></textarea>
+
+                <button type="submit" class="submit-btn">Analyze Candidate</button>
+            </form>
+
+            {% if result %}
+            <div class="result-box">
+                <div class="result-text">{{ result }}</div>
+                {% if "Match Score" in result %}
+                <div class="score-guide">
+                    <h4>📊 Understanding Vector Similarity:</h4>
+                    <p>This score represents raw keyword overlap in a high-dimensional vector space.</p>
+                    <div>
+                        <span class="legend-item"><strong>0-15%:</strong> Low</span>
+                        <span class="legend-item"><strong>15-30%:</strong> Good</span>
+                        <span class="legend-item"><strong>30%+:</strong> Excellent</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
+    </div> <footer>
+        <p>&copy; <span id="year"></span> Resume Screener AI. All rights reserved.</p>
+        <p>Built by <a href="/contact">Debarnab Das</a></p>
+    </footer>
+
+    <script>
+        // Set Year Dynamically
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Theme Logic
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            let targetTheme = 'light';
+            if (current === 'light') { targetTheme = 'dark'; }
+            document.documentElement.setAttribute('data-theme', targetTheme);
+            localStorage.setItem('theme', targetTheme);
+        }
+    </script>
 </body>
 </html>
