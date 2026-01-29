@@ -3,6 +3,14 @@
 An intelligent Machine Learning application that automatically **classifies resumes** into professional categories (Data Science, Java Developer, HR, etc.) and calculates a **Match Score** against specific Job Descriptions using TF-IDF vectorization and Cosine Similarity.
 
 ---
+## Live Demo (Preview)
+
+> If the live link is down, see screenshots below 👇
+
+![Home Page](images\Home Page.png)
+![Prediction Result](images\Prediction.png)
+
+
 
 ## 🌟 Key Features
 
