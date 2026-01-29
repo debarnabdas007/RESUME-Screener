@@ -2,7 +2,7 @@ import os
 import sys
 from dataclasses import dataclass
 
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
@@ -30,7 +30,7 @@ class ModelTrainer:
 
             # Define the Model
             # We use the exact same logic as your Notebook to ensure 98% accuracy
-            model = OneVsRestClassifier(KNeighborsClassifier())
+            model = OneVsRestClassifier(RandomForestClassifier())
 
             logging.info(f"Training Model: {model}")
             model.fit(X_train, y_train)

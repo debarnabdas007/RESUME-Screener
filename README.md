@@ -7,7 +7,7 @@ An intelligent Machine Learning application that automatically **classifies resu
 
 > If the live link is down, see screenshots below 👇
 
-![Home Page](images\Home Page.png)
+![Home Page](images\Home_Page.png)
 ![Prediction Result](images\Prediction.png)
 
 
