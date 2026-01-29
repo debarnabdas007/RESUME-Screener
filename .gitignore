@@ -24,16 +24,21 @@ dist/
 
 # --- Project Specifics ---
 
-# Ignore data files, keep structure
+# Ignore data files inside notebooks
 notebooks/data/*
 !notebooks/data/.gitkeep
 
-# Ignore ML artifacts (models, vectorizers)
+# --- ARTIFACTS & MODELS (The Important Part) ---
+# 1. Ignore everything in artifacts/ by default (keeps out train.csv, test.csv)
 artifacts/*
-notebooks/artifacts/*
-*.pkl
+
+# 2. BUT... Allow (Un-ignore) the .pkl model files
+# We need these for Render deployment!
+!artifacts/*.pkl
+
+# 3. Allow .gitkeep to track the folder structure
 !artifacts/.gitkeep
 
-# Ignore logs
+# --- Logs ---
 logs/*
 !logs/.gitkeep
