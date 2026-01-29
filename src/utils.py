@@ -2,6 +2,7 @@ import os
 import sys
 import pickle
 from src.exception import CustomException
+from sklearn.metrics.pairwise import cosine_similarity
 
 def save_object(file_path, obj):
     try:

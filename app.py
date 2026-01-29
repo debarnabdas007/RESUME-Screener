@@ -4,7 +4,6 @@ import PyPDF2
 
 app = Flask(__name__)
 
-# Helper to extract text from PDF
 def input_pdf_text(uploaded_file):
     reader = PyPDF2.PdfReader(uploaded_file)
     text = ""
@@ -18,27 +17,33 @@ def predict_datapoint():
     if request.method == 'GET':
         return render_template('home.html')
     else:
-        # 1. Get Input (either text paste or file upload)
+        # 1. Get Inputs
         text_input = request.form.get("resume_text")
         file_input = request.files.get("resume_file")
+        jd_input = request.form.get("jd_text") # <--- Get Job Description
 
         final_text = ""
 
         if file_input and file_input.filename != "":
-            # Handle PDF
             final_text = input_pdf_text(file_input)
         elif text_input:
-            # Handle Paste
             final_text = text_input
         else:
             return render_template('home.html', result="Please provide a resume!")
 
         # 2. Run Pipeline
         predict_pipeline = PredictPipeline()
-        prediction = predict_pipeline.predict(final_text)
+        
+        # Unpack the two return values
+        predicted_category, match_score = predict_pipeline.predict(final_text, jd_input)
 
-        # 3. Return Result
-        return render_template('home.html', result=f"Predicted Profile: {prediction}")
+        # 3. Format Output
+        result_string = f"Category: {predicted_category}"
+        
+        if match_score != "N/A":
+            result_string += f" | Match Score: {match_score}%"
+
+        return render_template('home.html', result=result_string)
 
 if __name__ == "__main__":
     app.run(debug=True)
