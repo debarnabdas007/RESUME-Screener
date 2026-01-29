@@ -36,7 +36,7 @@ An intelligent AI-powered resume screening system that automatically categorizes
 | **Web Framework** | Flask | 3.1.2 |
 | **ML Framework** | Scikit-Learn | 1.8.0 |
 | **Vectorization** | TF-IDF | 3000 features |
-| **Algorithm** | KNN + OneVsRest | - |
+| **Algorithm** | RandomForestClassifier + OneVsRest | - |
 | **PDF Processing** | PyPDF2 | 3.0.1 |
 | **Data Processing** | Pandas, NumPy | - |
 | **Deployment** | Render | Gunicorn |
@@ -133,7 +133,7 @@ print(f"Match Score: {match_score}%")
 
 ### Resume Classification Pipeline
 ```
-Resume Input → Text Extraction → Cleaning → TF-IDF Vectorization → KNN Classification → Category Output
+Resume Input → Text Extraction → Cleaning → TF-IDF Vectorization → RandomForest Classification → Category Output
 ```
 
 ### Job Match Scoring
@@ -166,14 +166,14 @@ Resume + Job Description → Text Cleaning → Vectorization → Cosine Similari
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Dataset**: Updated Resume Dataset (Kaggle)
 - **ML Framework**: Scikit-Learn community
 - **Web Framework**: Flask framework
 - **Deployment**: Render hosting platform
 
-## 📞 Contact
+## Contact
 
 **Developer**: Debarnab Das
 - **GitHub**: [@debarnabdas007](https://github.com/debarnabdas007)
