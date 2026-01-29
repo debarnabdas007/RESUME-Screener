@@ -1,0 +1,39 @@
+# --- Python Basics ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual Environments ---
+venv/
+env/
+.venv/
+resume_venv/
+.env
+
+# --- Distribution / Packaging ---
+build/
+dist/
+*.egg-info/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints/
+
+# --- IDE Settings ---
+.vscode/
+.idea/
+
+# --- Project Specifics ---
+
+# Ignore data files, keep structure
+notebooks/data/*
+!notebooks/data/.gitkeep
+
+# Ignore ML artifacts (models, vectorizers)
+artifacts/*
+notebooks/artifacts/*
+*.pkl
+!artifacts/.gitkeep
+
+# Ignore logs
+logs/*
+!logs/.gitkeep
